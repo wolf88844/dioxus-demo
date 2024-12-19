@@ -7,21 +7,20 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
-members = ["example-projects/*"]
+members = ["example-projects/*", 'example-projects\todoMvcV1']
 
 [workspace.dependencies]
-dioxus = { version = "0.6.0", features = ["web", "fullstack", "desktop"] }
-tokio = { version = "1.0" }
+dioxus = { version = "0.6.0", features = ["web"] }
+tokio = { version = "1.0", features = ["sync", "macros", "io-util", "rt", "time"] }
 dioxus-logger = "0.6.1"
 log = "0.4.20"
 
 [dependencies]
-dioxus = { version = "0.6.0", features = ["web", "fullstack"] }
-log = "0.4"
-dioxus-logger = "0.4"
+dioxus = { workspace = true }
+log = { workspace = true }
+dioxus-logger = { workspace = true }
 wasm-bindgen = "0.2"
 dioxus-router = "0.6.0"
-
 
 [features]
 default = ["web"]

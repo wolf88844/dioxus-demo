@@ -1,12 +1,12 @@
 use dioxus::prelude::*;
+use dioxus_logger::tracing::Level;
 use dioxus_router::prelude::*;
-use log::LevelFilter;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 
 fn main() {
     // Initialize the logger with debug level
-    dioxus_logger::init(LevelFilter::Debug).expect("failed to initialize logger");
+    dioxus_logger::init(Level::DEBUG).expect("failed to initialize logger");
     
     dioxus::launch(app);
 }
