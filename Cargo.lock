@@ -4651,6 +4651,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "wifi-scans"
+version = "0.1.0"
+dependencies = [
+ "dioxus",
+ "dioxus-logger",
+ "log",
+ "tokio",
+ "wifiscanner",
+]
+
+[[package]]
 name = "wifi_scans"
 version = "0.1.0"
 dependencies = [
