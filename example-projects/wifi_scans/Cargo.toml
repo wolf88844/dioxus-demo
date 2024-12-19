@@ -1,0 +1,16 @@
+[package]
+name = "wifi_scans"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+anyhow = "1.0.94"
+dioxus = {workspace = true,features=["desktop"]}
+dioxus-logger = "0.6.1"
+log = "0.4.20"
+futures = "0.3.31"
+futures-channel = "0.3.31"
+pretty_env_logger = "0.5.0"
+tokio = {workspace = true, features = ["full"]}
+wifiscanner = "0.5.1"
