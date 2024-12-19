@@ -9,7 +9,6 @@ fn main() {
     dioxus::launch(app);
 }
 
-
 enum Status {
     NoneFound,
     Found(Vec<Wifi>),
@@ -18,6 +17,7 @@ enum Status {
 fn perform_scan() -> Status {
     if let Ok(devices) = wifiscanner::scan() {
         if devices.is_empty() {
+            info!("No networks found");
             Status::NoneFound
         } else {
             info!("Found {} networks", devices.len());

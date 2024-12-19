@@ -1,0 +1,19 @@
+[package]
+name = "router_example"
+version = "0.1.0"
+authors = ["wolf88844 <wolf88840@163.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { version = "0.6.0", features = ["router"] }
+dioxus-logger.workspace = true
+dioxus-router = "0.6.1"
+log.workspace = true
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]
