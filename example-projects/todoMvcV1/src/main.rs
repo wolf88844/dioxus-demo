@@ -3,17 +3,9 @@ use dioxus::prelude::*;
 use std::collections::HashMap;
 
 const STYLE:Asset = asset!("/assets/todomvc.css");
-const ICON:Asset = asset!("/assets/favicon.ico");
 
 fn main(){    
     dioxus::launch(app);
-}
-
-#[component]
-fn app1()->Element{
-    rsx!{
-        img{src:ICON}
-    }
 }
 
 #[derive(PartialEq,Eq,Clone,Copy)]
