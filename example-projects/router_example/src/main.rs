@@ -3,9 +3,6 @@
 use dioxus::prelude::*;
 use dioxus_logger::tracing::Level;
 
-const ROUTER: Asset = asset!("/assets/router.css");
-const FAVICON: Asset = asset!("/assets/favicon.ico");
-
 fn main() {
     // Initialize the logger with debug level
     dioxus_logger::init(Level::DEBUG).expect("failed to initialize logger");
@@ -17,9 +14,9 @@ fn main() {
 fn App() -> Element {
     rsx! {
         head {
-            link { rel: "icon", r#type: "image/x-icon", href: FAVICON }
+            link { rel: "icon", r#type: "image/x-icon", href: asset!("/assets/favicon.ico") }
         }
-        document::Link { rel: "stylesheet", href: ROUTER }
+        document::Link { rel: "stylesheet", href: asset!("/assets/router.css") }
         Router::<Route> {}
     }
     }
