@@ -3,6 +3,7 @@
 use dioxus::prelude::*;
 use dioxus_logger::tracing::Level;
 
+const ROUTER: Asset = asset!("/assets/router.css");
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 
 fn main() {
@@ -18,26 +19,18 @@ fn App() -> Element {
         head {
             link { rel: "icon", r#type: "image/x-icon", href: FAVICON }
         }
-        Router::<Route> {
-            config:||{
-                RouterConfig::default()
-                .on_update(|state|{
-                    (state.current() == Route::BlogList{})
-                    .then_some(NavigationTarget::Internal(Route::Home {  }))
-                })
-            }
+        document::Link { rel: "stylesheet", href: ROUTER }
+        Router::<Route> {}
         }
     }
-}
 
-#[derive(Routable,Clone,PartialEq)]
+#[derive(Routable,Clone,PartialEq,Debug)]
 #[rustfmt::skip]
+#[allow(clippy::empty_line_after_outer_attr)]
 enum Route{
     #[layout(NavBar)]
     #[route("/")]
     Home {},
-    #[route("/favicon.ico")]
-    Icon {},
         #[nest("/blog")]
             #[layout(Blog)]
                 #[route("/")]
@@ -63,25 +56,11 @@ pub fn app()->Element{
     }
 }
 
-#[component]
-fn Icon()->Element{
-    log::info!("Icon");
-    rsx!{
-        img { src: FAVICON }
-    }
-}
 
 #[component]
 fn Home()->Element{
     log::info!("Home");
-    let nav = navigator();
-    nav.push(Route::PageNotFound { route: vec![] });
-    nav.replace(Route::Home {  });
-    nav.go_back();
-    nav.go_forward();
     rsx!{
-        GoBackButton { "返回"}
-        GoForwardButton{ "前进"}
         h1 { "Welcome to the Dioxus Blog!" }
     }
 }
@@ -98,7 +77,7 @@ fn PageNotFound(route:Vec<String>) ->Element{
 #[component]
 fn NavBar()->Element{
     rsx!{
-        nav { 
+        nav { id: "navbar",
             ul {
                 li {
                     Link {to:Route::Home{},"Home"}
@@ -113,8 +92,8 @@ fn NavBar()->Element{
             }
          }
          Outlet::<Route>{}
-                        }
-                    }
+        }
+}
 
 #[component]
 fn Blog()->Element{
@@ -126,8 +105,14 @@ fn Blog()->Element{
 
 #[component]
 fn BlogPost(name:String)->Element{
+    let contents = match name.as_str(){
+        "Blog post 1"=> "This is the first blog post",
+        "Blog post 2"=> "This is the second blog post",
+        _=> "This blog post does not exist"
+    };
     rsx!{
         h2 { "Blog Post: {name}" }
+        p{ "{contents}" }
     }
 }
 
@@ -135,23 +120,10 @@ fn BlogPost(name:String)->Element{
 fn BlogList()->Element{
     rsx!{
         h2{"Choose a post"}
-        ul { 
-            li{
-                Link {
-                    to: Route::BlogPost{
-                        name:"Blog post 1".into(),
-                    },
-                    "Read the first blog post"
-            }
-            }
-            li{
-                Link {
-                    to: Route::BlogPost{
-                        name:"Blog post 2".into(),
-                    },
-                    "Read the second blog post"
-                }
-            }
-        }
+        div { 
+            id:"blog-list",
+            Link{ to:Route::BlogPost { name: "Blog post 1".into() },"Read the first blog post"}
+            Link{ to:Route::BlogPost { name: "Blog post 2".into() },"Read the second blog post"}
+         }
     }
 }
