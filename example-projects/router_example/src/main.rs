@@ -21,7 +21,7 @@ fn App() -> Element {
         }
         document::Link { rel: "stylesheet", href: ROUTER }
         Router::<Route> {}
-        }
+    }
     }
 
 #[derive(Routable,Clone,PartialEq,Debug)]
@@ -52,7 +52,7 @@ enum Route{
 #[component]
 pub fn app()->Element{
     rsx!{
-        Router<Route> {}
+        Router::<Route> {}
     }
 }
 
@@ -68,9 +68,9 @@ fn Home()->Element{
 #[component]
 fn PageNotFound(route:Vec<String>) ->Element{
     rsx!{
-        h1 {"Page not found"}
-        p {"We are terribly sorry, but the page you requested could not be found."}
-        pre {color:"red","log:\nattempted to open {route:?}"}
+        h1 { "Page not found" }
+        p { "We are terribly sorry, but the page you requested could not be found." }
+        pre { color: "red", "log:\nattempted to open {route:?}" }
     }
 }
 
@@ -80,26 +80,26 @@ fn NavBar()->Element{
         nav { id: "navbar",
             ul {
                 li {
-                    Link {to:Route::Home{},"Home"}
+                    Link { to: Route::Home {}, "Home" }
                 }
-                li { 
-                    Link {to:Route::BlogList{},"Blog"}
-                    }
-                li { 
-                    Link{to:Route::BlogList{},"My Blog"}
-                 }
-
+                li {
+                    Link { to: Route::BlogList {}, "Blog" }
+                }
+                li {
+                    Link { to: Route::BlogList {}, "My Blog" }
+                }
+            
             }
-         }
-         Outlet::<Route>{}
         }
+        Outlet::<Route> {}
+    }
 }
 
 #[component]
 fn Blog()->Element{
     rsx!(
         h1 { "Blog" }
-        Outlet::<Route>{}
+        Outlet::<Route> {}
     )
 }
 
@@ -112,18 +112,27 @@ fn BlogPost(name:String)->Element{
     };
     rsx!{
         h2 { "Blog Post: {name}" }
-        p{ "{contents}" }
+        p { "{contents}" }
     }
 }
 
 #[component]
 fn BlogList()->Element{
     rsx!{
-        h2{"Choose a post"}
-        div { 
-            id:"blog-list",
-            Link{ to:Route::BlogPost { name: "Blog post 1".into() },"Read the first blog post"}
-            Link{ to:Route::BlogPost { name: "Blog post 2".into() },"Read the second blog post"}
-         }
+        h2 { "Choose a post" }
+        div { id: "blog-list",
+            Link {
+                to: Route::BlogPost {
+                    name: "Blog post 1".into(),
+                },
+                "Read the first blog post"
+            }
+            Link {
+                to: Route::BlogPost {
+                    name: "Blog post 2".into(),
+                },
+                "Read the second blog post"
+            }
+        }
     }
 }
